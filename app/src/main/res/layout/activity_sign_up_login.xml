@@ -235,10 +235,12 @@
     </LinearLayout>
 
     <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/ASUL_ProgressBar_PB"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerInParent="true"
+        android:visibility="gone"
         />
 
 </RelativeLayout>

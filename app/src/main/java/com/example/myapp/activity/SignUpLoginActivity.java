@@ -59,16 +59,41 @@ public class SignUpLoginActivity extends AppCompatActivity {
     }
 
     private void signUp(SignUpRequest signUpRequest) {
+        binding.ASULProgressBarPB.setVisibility(View.VISIBLE);
         RequestsManager.getInstance().signUp(signUpRequest, new RequestsManager.OnRequestManagerResponseListener<UserResponse>() {
             @Override
             public void onRequestSucceed(UserResponse result) {
                 saveToken(result);
+                binding.ASULProgressBarPB.setVisibility(View.GONE);
                 goToSplashActivity();
             }
 
             @Override
             public void onRequestFailed(String error) {
+                binding.ASULProgressBarPB.setVisibility(View.GONE);
+//                         log thet we cant
+//                        finish app
 
+            }
+        });
+
+    }
+
+    private void login(SignUpRequest signUpRequest) {
+        binding.ASULProgressBarPB.setVisibility(View.VISIBLE);
+        RequestsManager.getInstance().login(signUpRequest, new RequestsManager.OnRequestManagerResponseListener<UserResponse>() {
+            @Override
+            public void onRequestSucceed(UserResponse result) {
+                saveToken(result);
+                binding.ASULProgressBarPB.setVisibility(View.GONE);
+                goToSplashActivity();
+
+
+            }
+
+            @Override
+            public void onRequestFailed(String error) {
+                binding.ASULProgressBarPB.setVisibility(View.GONE);
 //                         log thet we cant
 //                        finish app
 
@@ -80,26 +105,6 @@ public class SignUpLoginActivity extends AppCompatActivity {
     private void goToSplashActivity() {
         startActivity(new Intent(this, SplashActivity.class));
         finish();
-    }
-
-    private void login(SignUpRequest signUpRequest) {
-        RequestsManager.getInstance().login(signUpRequest, new RequestsManager.OnRequestManagerResponseListener<UserResponse>() {
-            @Override
-            public void onRequestSucceed(UserResponse result) {
-                saveToken(result);
-
-
-            }
-
-            @Override
-            public void onRequestFailed(String error) {
-
-//                         log thet we cant
-//                        finish app
-
-            }
-        });
-
     }
 
     private void saveToken(UserResponse userResponse) {

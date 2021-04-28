@@ -124,17 +124,19 @@ public class DeleteStudyFragment extends Fragment {
     }
 
     private void deleteStudy(int studyPlanId) {
+        binding.FDSProgressBarPB.setVisibility(View.VISIBLE);
         RequestsManager.getInstance().deleteStudyPlan(studyPlanId, "Token "+ ManageSharedPreferences.getToken(getContext()).getToken(), new RequestsManager.OnRequestManagerResponseListener<DafLearnedItem>() {
             @Override
             public void onRequestSucceed(DafLearnedItem result) {
                 AppDataBase.getInstance(getContext()).daoLearning().deleteStudyPlan(studyPlanId);
                 updateLiveData(studyPlanId);
+                binding.FDSProgressBarPB.setVisibility(View.GONE);
                 goToSplashActivity();
             }
 
             @Override
             public void onRequestFailed(String error) {
-
+                binding.FDSProgressBarPB.setVisibility(View.GONE);
                 //                                    log server eror
             }
         });

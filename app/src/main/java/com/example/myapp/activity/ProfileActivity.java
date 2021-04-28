@@ -137,11 +137,13 @@ public class ProfileActivity extends AppCompatActivity implements TypeStudyProfi
         DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
             switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
+                    binding.APProgressBarPB.setVisibility(View.VISIBLE);
                     RequestsManager.getInstance().createStudyPlan(mStudyPlanItem,"Token "+ManageSharedPreferences.getToken(getBaseContext()).getToken(), new RequestsManager.OnRequestManagerResponseListener<StudyPlanItem>() {
                         @Override
                         public void onRequestSucceed(StudyPlanItem result) {
                             mainViewModel.createNewStudyPlan(result);
                             AppDataBase.getInstance(getBaseContext()).daoLearning().insertStudyPlan(new StudyPlan(result.getStudyPlanID(), result.getTypeOfStudy(), result.getWantChazara()));
+                            binding.APProgressBarPB.setVisibility(View.GONE);
                     if (!isAddStudyPlan) {
                         startActivity(new Intent(ProfileActivity.this, MainActivity.class));
                     }else {
@@ -154,7 +156,7 @@ public class ProfileActivity extends AppCompatActivity implements TypeStudyProfi
 
                         @Override
                         public void onRequestFailed(String error) {
-                            int tt = 9;
+                            binding.APProgressBarPB.setVisibility(View.GONE);
 //                         log thet we cant
 //                        finish app
 
