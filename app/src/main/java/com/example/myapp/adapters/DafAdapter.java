@@ -37,7 +37,7 @@ import static com.example.myapp.utils.StaticVariables.stringDafHayomi;
 
 public class DafAdapter extends RecyclerView.Adapter<DafAdapter.ViewHolder> {
 
-    private Activity activity;
+    private final Activity activity;
     private RecyclerView.LayoutManager mLayoutManager;
     private listenerOneDafAdapter mListener;
     private Learning mMaster1;
